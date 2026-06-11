@@ -9,7 +9,7 @@ int main(int argc, char* argv[])
     const int HEIGHT = 450;
     const int FPS = 60;
     
-        
+    SetExitKey(81);
     SetTargetFPS(FPS);
 
     const int CLICKEDOFSET = 10;
@@ -21,6 +21,7 @@ int main(int argc, char* argv[])
     if (IsAudioDeviceReady() == 0  || IsWindowReady() == 0){
       return 1;
 	}
+    
     float MasterVolume = GetMasterVolume();
     Sound Music = LoadSound(argv[1]);
     if (IsSoundValid(Music) == 0){
