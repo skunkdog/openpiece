@@ -3,6 +3,8 @@
 #include <dirent.h>
 #include <string.h>
 
+
+ 
 int main(int argc, char *argv[])
 {
     // Initialization
@@ -53,22 +55,19 @@ int main(int argc, char *argv[])
       perror("IsAudioDeviceReady");
       return 1;
     }
-
-    printf("After Checks\n");
-    Sound Music = LoadSound(playlist[3]);
+    int SongNumber = 3;
+    Sound Music = LoadSound(playlist[SongNumber]);
     PlaySound(Music);
-    
+
     
     // Main loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
-           SetExitKey(81);    // Set exit key to q
+    
+      SetExitKey(81);    // Set exit key to q
       SetWindowState(0x00000004); //Make window movable
 
-      BeginDrawing(); //Start drawing part
-
-      ClearBackground(BLACK); //Set black background
-
+      
       if (IsKeyPressed(32) == 1) // If space pressed cycle through pause and unpause
 	{
 	  CenterButtonState++;
@@ -76,14 +75,37 @@ int main(int argc, char *argv[])
 	    {
 	      CenterButtonState = 0;
 	    }
-	}
+	}  	  
       if (CenterButtonState == 1){	
-	//PauseSound(Music);
+	PauseSound(Music);
       }
       else{
-	//	ResumeSound(Music);
+	ResumeSound(Music);;
       }
+
+      if (IsKeyDown(74) == 1) // If j pressed --> next song
+	{
+	  if (SongNumber > 0){
+	    SongNumber--;
+	    StopSound(Music);
+	    Music = LoadSound(playlist[SongNumber]);
+	    PlaySound(Music);
+	  }
+	}
+      if (IsKeyDown(75) == 1)
+	{
+	  if (SongNumber < count){
+	    SongNumber++;
+	    StopSound(Music);
+	    Music = LoadSound(playlist[SongNumber]);
+	    PlaySound(Music);
+	  }
+	}
       
+      BeginDrawing(); //Start drawing part
+
+      ClearBackground(BLACK); //Set black background
+
       EndDrawing(); //Stops drawing 
     }
     
