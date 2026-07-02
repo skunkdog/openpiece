@@ -1,2 +1,2 @@
 # openpiece
-Suckless music player build with Raylib
+!WIP Suckless music player build with Raylib
